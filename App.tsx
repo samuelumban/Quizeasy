@@ -952,7 +952,18 @@ const App: React.FC = () => {
                               <div className="grid grid-cols-3 gap-3">
                                   {/* Logo Upload */}
                                   <div className="flex flex-col gap-1">
-                                      <span className="text-[10px] text-gray-400 font-bold uppercase">Logo</span>
+                                      <div className="flex justify-between items-center">
+                                          <span className="text-[10px] text-gray-400 font-bold uppercase">Logo</span>
+                                          {design.logo && (
+                                              <button 
+                                                  onClick={() => setDesign(prev => ({ ...prev, logo: null }))}
+                                                  className="text-red-500 hover:text-red-400 transition-colors"
+                                                  title="Hapus Logo"
+                                              >
+                                                  <Trash2 size={12} />
+                                              </button>
+                                          )}
+                                      </div>
                                       <label className="aspect-video border border-dashed border-brand-blue/50 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors bg-gray-900/50 relative overflow-hidden group">
                                           {design.logo ? (
                                               <>
@@ -968,7 +979,18 @@ const App: React.FC = () => {
 
                                   {/* Background Upload */}
                                   <div className="flex flex-col gap-1">
-                                      <span className="text-[10px] text-gray-400 font-bold uppercase">Background</span>
+                                      <div className="flex justify-between items-center">
+                                          <span className="text-[10px] text-gray-400 font-bold uppercase">Background</span>
+                                          {design.bgType === 'image' && design.bgImage && (
+                                              <button 
+                                                  onClick={() => setDesign(prev => ({ ...prev, bgImage: null, bgType: 'color' }))}
+                                                  className="text-red-500 hover:text-red-400 transition-colors"
+                                                  title="Hapus Background"
+                                              >
+                                                  <Trash2 size={12} />
+                                              </button>
+                                          )}
+                                      </div>
                                       <label className="aspect-video border border-dashed border-gray-600 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors bg-gray-900/50 relative overflow-hidden group">
                                           {design.bgType === 'image' && design.bgImage ? (
                                               <>
@@ -984,7 +1006,25 @@ const App: React.FC = () => {
 
                                   {/* Audio Upload */}
                                   <div className="flex flex-col gap-1">
-                                      <span className="text-[10px] text-gray-400 font-bold uppercase">Audio</span>
+                                      <div className="flex justify-between items-center">
+                                          <span className="text-[10px] text-gray-400 font-bold uppercase">Audio</span>
+                                          {design.audio && (
+                                              <button 
+                                                  onClick={() => {
+                                                      setDesign(prev => ({ ...prev, audio: null }));
+                                                      if(audioRef.current) {
+                                                          audioRef.current.pause();
+                                                          audioRef.current.src = "";
+                                                          setIsPlaying(false);
+                                                      }
+                                                  }}
+                                                  className="text-red-500 hover:text-red-400 transition-colors"
+                                                  title="Hapus Audio"
+                                              >
+                                                  <Trash2 size={12} />
+                                              </button>
+                                          )}
+                                      </div>
                                       <label className="aspect-video border border-dashed border-gray-600 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors bg-gray-900/50 group relative">
                                           {design.audio ? (
                                               <div className="flex flex-col items-center gap-1">
